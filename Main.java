@@ -1,17 +1,17 @@
 public class Main {
     public static void main(String[] args) {
         
-        // The first block in a blockchain is called the Genesis Block.
-        // It has no previous block, so we pass "0" as its previous hash.
-        Block genesisBlock = new Block("First block data", "0");
-        System.out.println("Genesis Block Hash: " + genesisBlock.hash);
+        // Set how hard the puzzle is. 4 or 5 is perfect for a laptop. 
+        // Warning: Don't set this higher than 6 or your computer might freeze for a long time!
+        int difficulty = 4;
 
-        // The second block takes the hash of the Genesis block
-        Block secondBlock = new Block("Second block data", genesisBlock.hash);
-        System.out.println("Second Block Hash:  " + secondBlock.hash);
+        Block genesisBlock = new Block("Genesis Data", "0");
+        genesisBlock.mineBlock(difficulty);
 
-        // The third block takes the hash of the second block
-        Block thirdBlock = new Block("Third block data", secondBlock.hash);
-        System.out.println("Third Block Hash:   " + thirdBlock.hash);
+        Block secondBlock = new Block("Transaction: Alice sends 5 BTC to Bob", genesisBlock.hash);
+        secondBlock.mineBlock(difficulty);
+
+        Block thirdBlock = new Block("Transaction: Bob sends 2 BTC to Charlie", secondBlock.hash);
+        thirdBlock.mineBlock(difficulty);
     }
 }
