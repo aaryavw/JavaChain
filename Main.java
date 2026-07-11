@@ -1,8 +1,6 @@
 public class Main {
     public static void main(String[] args) {
         
-        // Set how hard the puzzle is. 4 or 5 is perfect for a laptop. 
-        // Warning: Don't set this higher than 6 or your computer might freeze for a long time!
         int difficulty = 4;
 
         Block genesisBlock = new Block("Genesis Data", "0");

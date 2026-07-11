@@ -8,7 +8,7 @@ public class Block {
     public String previousHash;
     private String data;
     private long timeStamp;
-    private int nonce; // NEW: The variable that changes during mining
+    private int nonce;
 
     public Block(String data, String previousHash) {
         this.data = data;
@@ -17,12 +17,10 @@ public class Block {
         this.hash = calculateHash(); 
     }
 
-    // UPDATED: Added + nonce to the input string
     public String calculateHash() {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             
-            // The nonce must be included in the hash calculation!
             String input = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data;
             
             byte[] hashBytes = digest.digest(input.getBytes(StandardCharsets.UTF_8));
@@ -38,14 +36,11 @@ public class Block {
         }
     }
 
-    // NEW: The Proof-of-Work Mining Loop
     public void mineBlock(int difficulty) {
-        // Create a target string of zeros (e.g., difficulty of 4 turns into "0000")
         String target = new String(new char[difficulty]).replace('\0', '0'); 
         
         System.out.println("Mining block with data: [" + data + "]...");
         
-        // Loop runs until the first 'X' characters of our hash match the target zeros
         while(!hash.substring(0, difficulty).equals(target)) {
             nonce++;             // Increment the number used once
             hash = calculateHash(); // Try a completely new hash calculation
